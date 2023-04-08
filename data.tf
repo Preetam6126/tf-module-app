@@ -5,4 +5,3 @@ data "aws_ami" "ami" {
 }
 
 
-
