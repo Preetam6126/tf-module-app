@@ -19,8 +19,11 @@ resource "aws_launch_template" "main" {
   { Name = "${var.component}-${var.env}" }
    )
   }
-
-#   user_data = filebase64("${path.module}/example.sh")
+  
+  user_data = base64encode(templatefile("user_data.sh", {
+    component = var.component
+    env = var.env
+      } ))
 }
 
 resource "aws_autoscaling_group" "main" {
