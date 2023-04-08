@@ -24,6 +24,7 @@ resource "aws_launch_template" "main" {
 }
 
 resource "aws_autoscaling_group" "main" {
+  name               = "${var.component}-${var.env}"
   desired_capacity   = var.desired_capacity
   max_size           = var.max_size
   min_size           = var.min_size
@@ -32,5 +33,14 @@ resource "aws_autoscaling_group" "main" {
   launch_template {
     id      = aws_launch_template.main.id
     version = "$Latest"
-  }
+    }
+tag {
+   
+ key                 = "Name"
+ propagate_at_launch = false
+ value               = "${var.component}-${var.env}"
+  
+  
+   }
+  
 }
