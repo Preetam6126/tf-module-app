@@ -51,5 +51,5 @@ resource "aws_iam_role" "main" {
   tags   = merge(
    var.tags,
   { Name = "${var.component}-${var.env}" }
-   )}
+   )
 }
