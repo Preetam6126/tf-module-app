@@ -70,7 +70,7 @@ resource "aws_security_group" "main" {
     from_port        = var.port
     to_port          = var.port
     protocol         = "tcp"
-    cidr_blocks      = var.bastion_cidr
+    cidr_blocks      = var.allow_app_to
     
   }
 
