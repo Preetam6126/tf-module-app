@@ -1,9 +1,9 @@
 resource "aws_launch_template" "main" {
   name = "${var.component}-${var.env}"
 
-#   iam_instance_profile {
-#     name = "test"
-#   }
+  iam_instance_profile {
+    name = aws_iam_instance_profile.main.name
+  }
 
   image_id = data.aws_ami.ami.id
   instance_market_options {
@@ -77,4 +77,14 @@ resource "aws_security_group" "main" {
    var.tags,
   { Name = "${var.component}-${var.env}" }
    )
+}
+
+resource "aws_iam_instance_profile" "main" {
+  name = "${var.component}-${var.env}"
+  role = aws_iam_role.main.name
+}
+
+resource "aws_iam_role_policy_attachment" "attach" {
+  role       = aws_iam_role.main.name
+  policy_arn = aws_iam_policy.main.arn
 }
