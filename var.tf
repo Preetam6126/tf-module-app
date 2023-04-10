@@ -10,6 +10,8 @@ variable "vpc_id" {}
 variable "bastion_cidr" {}
 variable "port" {}
 variable "allow_app_to" {}
+
   
+
 
 
