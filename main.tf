@@ -41,6 +41,7 @@ resource "aws_autoscaling_group" "main" {
     id      = aws_launch_template.main.id
     version = "$Latest"
     }
+    
 tag {
    
  key                 = "Name"
@@ -111,7 +112,9 @@ resource "aws_lb_target_group" "main" {
     unhealthy_threshold = 5
     interval            = 5
     timeout             = 4
+    path                = "/health"
   }
+  
   
    tags   = merge(
    var.tags,
@@ -142,7 +145,9 @@ resource "aws_lb_listener_rule" "listener_rule" {
 
   condition {
     host_header {
-      values = ["my-service.*.terraform.io"]
+      values = [local.dns_name]
     }
   }
 }
+
+
