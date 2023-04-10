@@ -127,4 +127,6 @@ resource "aws_route53_record" "main" {
   type    = "CNAME"
   ttl     = 30
   records = [var.alb_dns_name]
+  
+  
 }
