@@ -10,8 +10,9 @@ resource "aws_launch_template" "main" {
     market_type = "spot"
   }
   
-  instance_type = var.instance_type
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
+  
   tag_specifications {
     resource_type = "instance"
 
@@ -34,7 +35,7 @@ resource "aws_autoscaling_group" "main" {
   desired_capacity   = var.desired_capacity
   max_size           = var.max_size
   min_size           = var.min_size
-  vpc_zone_identifier = var.subnets
+  vpc_zone_identifier= var.subnets
   target_group_arns  = [aws_lb_target_group.main.arn]
 
   launch_template {
@@ -90,15 +91,6 @@ resource "aws_security_group" "main" {
    )
 }
 
-resource "aws_iam_instance_profile" "main" {
-  name = "${var.component}-${var.env}"
-  role = aws_iam_role.main.name
-}
-
-resource "aws_iam_role_policy_attachment" "attach" {
-  role       = aws_iam_role.main.name
-  policy_arn = aws_iam_policy.main.arn
-}
 
 resource "aws_lb_target_group" "main" {
   name     = "${var.component}-${var.env}"
