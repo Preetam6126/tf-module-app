@@ -17,9 +17,7 @@ policy = jsonencode({
                 "ssm:GetParameter",
                 "ssm:GetPatchBaseline"
             ],
-            
-            Resource : [for k in local.parameters : "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${k}.*"]
-            # "Resource": "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}*"
+            "Resource": "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}*"
         },
         {
             "Sid": "VisualEditor1",
