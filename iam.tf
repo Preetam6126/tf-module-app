@@ -1,7 +1,8 @@
 resource "aws_iam_policy" "main" {
-  name = "${var.component}-${var.env}"
-  path = "/"
+  name        = "${var.component}-${var.env}"
+  path        = "/"
   description = "${var.component}-${var.env}"
+
 
 policy = jsonencode({
     
@@ -17,7 +18,11 @@ policy = jsonencode({
                 "ssm:GetParameter",
                 "ssm:GetPatchBaseline"
             ],
-            "Resource":["arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}.*"]
+            "Resource":[
+            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}*",
+            
+            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.docdb.*"            
+            ]
         },
         {
             "Sid": "VisualEditor1",
