@@ -19,10 +19,15 @@ policy = jsonencode({
                 "ssm:GetPatchBaseline"
             ],
             "Resource":[
-            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}*",
+            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}.*",
             
-            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.docdb.*"            
+            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.docdb.*", 
+            "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.elasticache.*"
+            # To limit the access means security purpose way, every component(apps) doesnt need permission access to docdb or elasticach, so we will limit access to particular component
+            # creating dynamically 
+            
             ]
+          Resource : [for k in local.parameters : "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${k}.*",]
         },
         {
             "Sid": "VisualEditor1",
