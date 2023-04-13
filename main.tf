@@ -123,8 +123,6 @@ resource "aws_route53_record" "main" {
   type    = "CNAME"
   ttl     = 30
   records = [var.alb_dns_name]
-  
-  
 }
 
 resource "aws_lb_listener_rule" "listener_rule" {
