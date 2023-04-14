@@ -19,7 +19,7 @@ resource "aws_launch_template" "main" {
 
   tags   = merge(
    var.tags,
-  { Name = "${var.component}-${var.env}" }
+  { Name = "${var.component}-${var.env}", Monitor = "yes"}
    )
   }
   
@@ -49,10 +49,14 @@ tag {
  key                 = "Name"
  propagate_at_launch = false
  value               = "${var.component}-${var.env}"
-  
-  
    }
-  
+   
+tag {
+   
+ key                 = "Monitor"
+ propagate_at_launch = false
+ value               = "yes"
+   }
 }
 
 resource "aws_security_group" "main" {
