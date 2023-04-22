@@ -46,10 +46,12 @@ resource "aws_autoscaling_group" "main" {
     
 tag {
  key                 = "Name"
- propagate_at_launch = true
+ propagate_at_launch = false
  value               = "${var.component}-${var.env}"
    }
 }
+
+
 
 # resource "aws_autoscaling_policy" "asg-cpu-rule" {
 #   name                   = "CPUUtilisationTrackingpolicy"
